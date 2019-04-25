@@ -17,21 +17,22 @@ import selenium.webdriver.chrome.service as service
 """
 
 
+BASE_URL     = "https://glastonbury.seetickets.com"
 COACH_URL    = "https://glastonbury.seetickets.com/event/glastonbury-2019-ticket-coach-travel-deposits/worthy-farm/1300002"
 EXPECTED_URL = "https://glastonbury.seetickets.com/event/glastonbury-2019-deposits/worthy-farm/1300000"
 REGISTRATION_URL = "https://glastonbury.seetickets.com/event/addregistrations"
+COACH_RESALE_URL = "https://glastonbury.seetickets.com/event/glastonbury-2019-ticket-coach-travel-wednesday/worthy-farm/1300007"
 
 # options
 DRIVER           = '/path/to/chromedriver'
-URL              = EXPECTED_URL#"https://glastonbury.seetickets.com"
+URL              = BASE_URL#EXPECTED_URL#"https://glastonbury.seetickets.com"
 TIMEOUT          = 2.0 # seconds
 TIMETOFILL       = 10000  # seconds (leave this at a large number)
-REFRESHRATE      = 0.1 # seconds
+REFRESHRATE      = 0.01 # seconds
 PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "we couldn't find the event you were looking for",
                     "This page will automatically check for a space every",
-                    "anticipated demand for tickets",
-                    "sold out"]
+                    "anticipated demand for tickets"]
 
 def get_client_data(filename='data.json'):
     """
