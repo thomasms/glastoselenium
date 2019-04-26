@@ -32,7 +32,8 @@ REFRESHRATE      = 0.01 # seconds
 PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "we couldn't find the event you were looking for",
                     "This page will automatically check for a space every",
-                    "anticipated demand for tickets"]
+                    "anticipated demand for tickets",
+                    "registration"]
 
 def get_client_data(filename='data.json'):
     """
