@@ -1,6 +1,17 @@
+#!/usr/bin/env python3
+
 import glasto as gl
 
-s = gl.Service(gl.DRIVER_PATH)
+try:
+    from glasto._custom.driver import DRIVER_PATH
+except:
+    import os
+    DRIVER_PATH = os.getenv("CHROMEDRIVER", '')
+    if not DRIVER_PATH:
+        raise RuntimeError(
+            "Requires chromedriver - set the path via env variable CHROMEDRIVER")
+
+s = gl.Service(DRIVER_PATH)
 print("Service URL: ", s.url())
 c = gl.RefresherClient(s, timeout=2, refreshrate=0.1)
 

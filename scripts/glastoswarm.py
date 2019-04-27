@@ -1,6 +1,18 @@
+#!/usr/bin/env python3
+
+import time
 import multiprocessing as mp
 
 import glasto as gl
+
+try:
+    from glasto._custom.driver import DRIVER_PATH
+except:
+    import os
+    DRIVER_PATH = os.getenv("CHROMEDRIVER", '')
+    if not DRIVER_PATH:
+        raise RuntimeError(
+            "Requires chromedriver - set the path via env variable CHROMEDRIVER")
 
 DEPOSIT_19_URL = [
     "https://glastonbury.seetickets.com/event/glastonbury-2019-deposits/worthy-farm/1300000",
@@ -14,23 +26,21 @@ PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "This page will automatically check for a space every",
                     "anticipated demand for tickets",
                     "registration"]
-INSTANCES = 3
-
+# seems unstable for large number - why?
+INSTANCES = 4
 
 def run(i):
-    s = gl.Service(gl.DRIVER_PATH)
-    c = gl.Twenty19(s, timeout=2, refreshrate=i*0.2)
+    s = gl.Service(DRIVER_PATH)
+    c = gl.Twenty19(s, timeout=3, refreshrate=i*0.05)
     if c.establishconnection(DEPOSIT_19_URL[min(i, len(DEPOSIT_19_URL)-1)], phrases_to_check=PHRASES_TO_CHECK):
         print("success")
         print(c.attempts)
         print(c.timeout)
 
-
 processes = []
 for i in range(INSTANCES):
     p = mp.Process(target=run, args=(i,))
     processes.append(p)
+    # add a delay of 5 seconds to allow next instance to settle
+    time.sleep(5)
     p.start()
-
-# for p in processes:
-#    p.join()
