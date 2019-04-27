@@ -30,5 +30,5 @@ for i in range(INSTANCES):
     processes.append(p)
     p.start()
 
-for p in processes:
-    p.join()
+#for p in processes:
+#    p.join()
