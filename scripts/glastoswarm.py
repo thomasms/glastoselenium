@@ -3,11 +3,11 @@ import multiprocessing as mp
 import glasto as gl
 
 DEPOSIT_19_URL = [
-        "https://glastonbury.seetickets.com/event/glastonbury-2019-deposits/worthy-farm/1300000",
-        # "https://glastonbury.seetickets.com/",
-        "https://glastonbury.seetickets.com/event/glastonbury-2019-ticket-coach-travel-wednesday/worthy-farm/1300007",
-        # "https://glastonbury.seetickets.com/event/addregistrations",
-        "https://glastonbury.seetickets.com/event/glastonbury-2019-ticket-coach-travel-deposits/worthy-farm/1300002"
+    "https://glastonbury.seetickets.com/event/glastonbury-2019-deposits/worthy-farm/1300000",
+    # "https://glastonbury.seetickets.com/",
+    "https://glastonbury.seetickets.com/event/glastonbury-2019-ticket-coach-travel-wednesday/worthy-farm/1300007",
+    # "https://glastonbury.seetickets.com/event/addregistrations",
+    "https://glastonbury.seetickets.com/event/glastonbury-2019-ticket-coach-travel-deposits/worthy-farm/1300002"
 ]
 PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "we couldn't find the event you were looking for",
@@ -15,6 +15,7 @@ PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "anticipated demand for tickets",
                     "registration"]
 INSTANCES = 3
+
 
 def run(i):
     s = gl.Service(gl.DRIVER_PATH)
@@ -24,11 +25,12 @@ def run(i):
         print(c.attempts)
         print(c.timeout)
 
+
 processes = []
 for i in range(INSTANCES):
     p = mp.Process(target=run, args=(i,))
     processes.append(p)
     p.start()
 
-#for p in processes:
+# for p in processes:
 #    p.join()
