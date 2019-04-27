@@ -19,7 +19,8 @@ except:
 
 s = gl.Service(DRIVER_PATH)
 print("Service URL: ", s.url())
-c = gl.Twenty19(s, timeout=2, refreshrate=0.01)
+# c = gl.Twenty19(s, timeout=2, refreshrate=0.01)
+c = gl.Twenty19WithKillSwitch(s, killfile="killfile.txt", timeout=2, refreshrate=0.01)
 
 if c.establishconnection(DEPOSIT_19_URL, phrases_to_check=PHRASES_TO_CHECK):
     print("success")

@@ -1,0 +1,2 @@
+to enable killswitch remove the ! from the word below
+STO!P
