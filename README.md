@@ -8,7 +8,6 @@ Requires a webdriver - only tested with chromedriver (http://chromedriver.chromi
 
 Look in examples and script directories on how to use it.
 
-
 Run:
 ```bash
 python setup.py install
@@ -25,3 +24,8 @@ import glasto as gl
 ...
 ```
 
+Alternatively, the first version exists on PyPI and can be installed directly using pip:
+
+```bash
+pip install glasto
+```
