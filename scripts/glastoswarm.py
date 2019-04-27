@@ -24,8 +24,7 @@ DEPOSIT_19_URL = [
 PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "we couldn't find the event you were looking for",
                     "This page will automatically check for a space every",
-                    "anticipated demand for tickets",
-                    "registration"]
+                    "anticipated demand for tickets"]
 # seems unstable for large number - why?
 INSTANCES = 4
 

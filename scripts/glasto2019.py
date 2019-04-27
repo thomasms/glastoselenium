@@ -6,8 +6,7 @@ DEPOSIT_19_URL = "https://glastonbury.seetickets.com/event/glastonbury-2019-depo
 PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "we couldn't find the event you were looking for",
                     "This page will automatically check for a space every",
-                    "anticipated demand for tickets",
-                    "registration"]
+                    "anticipated demand for tickets"]
 
 try:
     from glasto._custom.driver import DRIVER_PATH
