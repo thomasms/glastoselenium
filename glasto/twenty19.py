@@ -1,5 +1,7 @@
 import time
 
+from selenium.webdriver.common.keys import Keys
+
 from .client import RefresherClient
 
 
@@ -37,9 +39,41 @@ class Twenty19(RefresherClient):
                     'entry-content')
             except:
                 continue
+    
+    def submit_registration(self, details):
+        """
+            todo: implement
+
+            only handles lead booker so far. a bit hacky
+        """
+
+        inputs = self.client.find_elements_by_tag_name('input')
+        
+        # loop to find registration input - lead booker only
+        foundNum = False
+        foundPost = False
+        for i in inputs:
+            if foundNum and foundPost:
+                break
+            if 'registrationid' in i.get_attribute('name').lower():
+                i.send_keys(details['number'])
+                foundNum = True
+            if 'postcode' in i.get_attribute('name').lower():
+                i.send_keys(details['postcode'])
+                foundPost = True
+
+        if not foundPost or not foundNum:
+            print("No such input.")
+            # how to handle invalid or mismatch??
+
+        # loop again to find submit and go to submit page
+        for i in inputs:
+            if 'submit' in i.get_attribute('type').lower():
+                print("submitting...")
+                i.send_keys(Keys.ENTER)
 
 
-class Twenty19WithKillSwitch(RefresherClient):
+class Twenty19WithKillSwitch(Twenty19):
     """
         2019 hack attempt with kill switch file
     """
