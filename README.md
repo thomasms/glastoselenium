@@ -29,3 +29,18 @@ Alternatively, the first version exists on PyPI and can be installed directly us
 ```bash
 pip install glasto
 ```
+
+Some test sites are being added to the submodule test/sites - https://github.com/thomasms/testsites.
+These mimic a real life web site that needs a lot of refreshing.
+
+One React SPA exists so far. 
+Just run it locally via npm
+```bash
+cd test/sites
+npm start
+```
+
+Then test the client script:
+```bash
+python test/testsite1.py
+```

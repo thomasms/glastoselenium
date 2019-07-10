@@ -1,0 +1,3 @@
+[submodule "tests/sites"]
+	path = tests/sites
+	url = https://github.com/thomasms/testsites

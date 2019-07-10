@@ -25,13 +25,14 @@ class Client(object):
         times are in seconds
     """
 
-    def __init__(self, service, timeout=2.0):
+    def __init__(self, service, timeout=2.0, verbose=False):
         self._service = service
 
         self.client = None  # webdriver.Remote(service.url())
         self.timeout = timeout
         self.content = ""
         self.attempts = 0
+        self.verbose = verbose
 
     def establishconnection(self, url, scalefactor=1.1,
                             mintimeout=1.0, maxiterations=1000, phrases_to_check=[]):
@@ -46,8 +47,9 @@ class Client(object):
                 return True
             except:
                 self.timeout = max(self.timeout*scalefactor, mintimeout)
-                print("Page load Timeout Occured. Increasing timeout to {} and trying again....".format(
-                    self.timeout))
+                if self.verbose:
+                    print("Page load Timeout Occured. Increasing timeout to {} and trying again....".format(
+                        self.timeout))
                 self.client.quit()
                 self.attempts += 1
         return False
@@ -82,7 +84,8 @@ class RefresherClient(Client):
         # if they appear then we need to maintain the same timeout but try again.
         while check_page(self.content):
             # try again
-            print("Refreshing...")
+            if self.verbose:
+                print("Refreshing...")
             time.sleep(self.refreshrate)
             self.client.get(url)
             self.attempts += 1
