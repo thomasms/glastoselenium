@@ -3,9 +3,9 @@
 import os
 import glasto as gl
 
-# test on reference HTML obtained from todays resale
-URL = "file:///{}/ref/Buy%20tickets%20for%20Glastonbury%202019%20-%20Glastonbury.html".format(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
+DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/addregistrations"
+DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020/worthy-farm/1300001"
 PHRASES_TO_CHECK = [gl.Twenty20.REGISTRATION_PHRASE]
 
 # first is lead booker
@@ -45,8 +45,8 @@ except:
         raise RuntimeError(
             "Requires chromedriver - set the path via env variable CHROMEDRIVER")
 
-def attemptconnection(client):
-    if client.establishconnection(URL, phrases_to_check=PHRASES_TO_CHECK):
+def attemptconnection(client, url):
+    if client.establishconnection(url, phrases_to_check=PHRASES_TO_CHECK):
         print("success")
         print(client.attempts)
         print(client.content)
@@ -67,9 +67,9 @@ def attemptconnection(client):
             print("Registration details submission failed!")
 
     # try again
-    attemptconnection(client)
+    attemptconnection(client, url)
 
 # main
 s = gl.Service(DRIVER_PATH)
 c = gl.Twenty20(s, timeout=2, refreshrate=0.01)
-attemptconnection(c)
+attemptconnection(c, DEPOSIT_20_URL)

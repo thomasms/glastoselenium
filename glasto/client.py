@@ -57,6 +57,10 @@ class Client(object):
     def _refreshcheck(self, url, phrases_to_check):
         pass
 
+    @property
+    def pagesource(self):
+        return self.client.page_source
+
     def close(self):
         self.client.quit()
 
