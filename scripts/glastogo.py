@@ -2,6 +2,7 @@
 
 import os
 import glasto as gl
+import time
 
 # test on reference HTML obtained from todays resale
 URL = "file:///{}/ref/Buy%20tickets%20for%20Glastonbury%202019%20-%20Glastonbury.html".format(
@@ -72,4 +73,6 @@ def attemptconnection(client):
 s = gl.Service(DRIVER_PATH)
 c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=False)
 attemptconnection(c)
-input('...')
+
+# backup sleep 
+time.sleep(1000000) # Hack - leave it open to fill in details

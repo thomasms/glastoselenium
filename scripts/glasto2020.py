@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import os
+import time
 import glasto as gl
 
-# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
+# try one of these URLS
+DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
 DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/addregistrations"
 DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020/worthy-farm/1300001"
 PHRASES_TO_CHECK = [gl.Twenty20.REGISTRATION_PHRASE]
@@ -52,8 +54,13 @@ def attemptconnection(client, url):
         gl.tofile(client.content, "reg_page_2020.html")
         if client.submit_registration(REG_DETAILS):
             print("Registration details submission success!")
+            # save the html data
+            gl.tofile(client.pagesource, "reg_check_2020.html")
 
+            # then click 'confirm' button and save html data again
+            client.clickbutton('Confirm')
             gl.tofile(client.pagesource, "payment_page_2020.html")
+
             # we cannot go beyond this automated, 
             # since entering credit cards details automatically
             # is terribly risky.
@@ -72,4 +79,6 @@ def attemptconnection(client, url):
 s = gl.Service(DRIVER_PATH)
 c = gl.Twenty20(s, timeout=2, refreshrate=0.01)
 attemptconnection(c, DEPOSIT_20_URL)
-input('...')
+
+# backup sleep 
+time.sleep(1000000) # Hack - leave it open to fill in details
