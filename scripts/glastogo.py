@@ -32,9 +32,9 @@ if len(REG_DETAILS) == 0:
     raise RuntimeError(
         "Must have at least one registration!")
 
-if len(REG_DETAILS) > 4:
+if len(REG_DETAILS) > 6:
     raise RuntimeError(
-        "Cannot accept more than 1 + 3 registration details!")
+        "Cannot accept more than 1 + 5 registration details!")
 
 try:
     from glasto._custom.driver import DRIVER_PATH
@@ -67,9 +67,9 @@ def attemptconnection(client):
             print("Registration details submission failed!")
 
     # try again
-    attemptconnection(client)
+    # attemptconnection(client)
 
 # main
 s = gl.Service(DRIVER_PATH)
-c = gl.Twenty20(s, timeout=2, refreshrate=0.01)
+c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=True)
 attemptconnection(c)

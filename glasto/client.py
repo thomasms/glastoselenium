@@ -37,7 +37,7 @@ class Client(object):
     def establishconnection(self, url, scalefactor=1.1,
                             mintimeout=1.0, maxiterations=1000, phrases_to_check=[]):
         self.attempts = 0
-        while True and self.attempts < maxiterations:
+        while self.attempts < maxiterations:
             self.client = webdriver.Remote(self._service.url())
             self.client.set_page_load_timeout(self.timeout)
             try:

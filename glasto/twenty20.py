@@ -37,8 +37,9 @@ class Twenty20(RefresherClient):
             time.sleep(self.refreshrate)
             self.client.get(url)
             try:
-                self.content = self.client \
-                    .find_elements_by_xpath("//*[contains(text(), '{}')]".format(REGISTRATION_PHRASE))
+                self.content = self.client.find_element_by_tag_name('body')
+                # self.content = self.client \
+                #     .find_element_by_xpath("//*[contains(text(), '{}')]".format(REGISTRATION_PHRASE))
             except:
                 continue
 
@@ -56,7 +57,7 @@ class Twenty20(RefresherClient):
         reg_count = 0
         post_code_count = 0
         for i in inputs:
-            if reg_count == len(details) and post_code_count == len(details) :
+            if reg_count == len(details) and post_code_count == len(details):
                 break
             print(i.get_attribute('name').lower())
             # if foundNum and foundPost:
