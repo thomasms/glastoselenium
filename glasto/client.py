@@ -57,6 +57,13 @@ class Client(object):
     def _refreshcheck(self, url, phrases_to_check):
         pass
 
+    def clickbutton(self, substr):
+        for button in self.client.find_elements_by_tag_name('button'):
+            if substr in button.text:
+                button.click()
+                self.content = self.client.page_source
+                return
+
     @property
     def pagesource(self):
         return self.client.page_source

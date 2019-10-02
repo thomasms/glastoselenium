@@ -20,9 +20,10 @@ class Twenty20(RefresherClient):
             return condition
 
         try:
-            _ = self.client.find_element_by_tag_name('h1')
-            self.content = self.client.find_element_by_class_name(
-                'entry-content')
+            self.content = self.client.find_element_by_tag_name('body')
+            # _ = self.client.find_element_by_tag_name('h1')
+            # self.content = self.client.find_element_by_class_name(
+            #     'entry-content')
         except:
             print(
                 "Incorrect html format found. Is the URL as expected? URL: {}".format(url))

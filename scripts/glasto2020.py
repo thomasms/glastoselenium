@@ -49,7 +49,6 @@ def attemptconnection(client, url):
     if client.establishconnection(url, phrases_to_check=PHRASES_TO_CHECK):
         print("success")
         print(client.attempts)
-        print(client.content)
         gl.tofile(client.content, "reg_page_2020.html")
         if client.submit_registration(REG_DETAILS):
             print("Registration details submission success!")
@@ -66,10 +65,11 @@ def attemptconnection(client, url):
         else:
             print("Registration details submission failed!")
 
-    # try again
-    attemptconnection(client, url)
+    # try again??
+    # attemptconnection(client, url)
 
 # main
 s = gl.Service(DRIVER_PATH)
 c = gl.Twenty20(s, timeout=2, refreshrate=0.01)
 attemptconnection(c, DEPOSIT_20_URL)
+input('...')
