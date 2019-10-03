@@ -4,29 +4,35 @@ import os
 import time
 import glasto as gl
 
+# incognito??
+incognito = True
+
+# disable js??
+disablejs = True
+
 # try one of these URLS
-DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
-DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/addregistrations"
-DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020/worthy-farm/1300001"
+# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
+# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/addregistrations"
+# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020/worthy-farm/1300001"
+# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-ticket-coach-travel-deposits/worthy-farm/1450012"
+# DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-ticket-coach-travel-deposits/worthy-farm/1450013"
+DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-ticket-deposits/worthy-farm/1450012"
+
 PHRASES_TO_CHECK = [gl.Twenty20.REGISTRATION_PHRASE]
 
 # first is lead booker
 REG_DETAILS=[
     {
         'number': "123", 
-        'postcode': "SW1 1AA"
+        'postcode': "ABC DEF"
     },
     {
-        'number': "45", 
-        'postcode': "SW1 1AB"
+        'number': "456", 
+        'postcode': "ABC5 JEF"
     },
     {
-        'number': "67", 
-        'postcode': "BA16 1AB"
-    },
-    {
-        'number': "89", 
-        'postcode': "BA12 2GB"
+        'number': "789", 
+        'postcode': "JL14 DEF"
     }
 ]
 
@@ -51,15 +57,24 @@ def attemptconnection(client, url):
     if client.establishconnection(url, phrases_to_check=PHRASES_TO_CHECK):
         print("success")
         print(client.attempts)
-        gl.tofile(client.content, "reg_page_2020.html")
+        try:
+            gl.tofile(client.content, "reg_page_2020.html")
+        except:
+            pass
         if client.submit_registration(REG_DETAILS):
             print("Registration details submission success!")
             # save the html data
-            gl.tofile(client.pagesource, "reg_check_2020.html")
+            try:
+                gl.tofile(client.content, "reg_check_2020.html")
+            except:
+                pass
 
-            # then click 'confirm' button and save html data again
-            client.clickbutton('Confirm')
-            gl.tofile(client.pagesource, "payment_page_2020.html")
+            try:
+                # then click 'confirm' button and save html data again
+                client.clickbutton('Confirm')
+                gl.tofile(client.pagesource, "payment_page_2020.html")
+            except:
+                pass
 
             # we cannot go beyond this automated, 
             # since entering credit cards details automatically
@@ -77,7 +92,8 @@ def attemptconnection(client, url):
 
 # main
 s = gl.Service(DRIVER_PATH)
-c = gl.Twenty20(s, timeout=2, refreshrate=0.01)
+c = gl.Twenty20(s, timeout=4, refreshrate=0.01, verbose=False, 
+    disablejs=disablejs, incognito=incognito)
 attemptconnection(c, DEPOSIT_20_URL)
 
 # backup sleep 

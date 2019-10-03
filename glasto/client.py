@@ -2,6 +2,7 @@ import time
 from selenium import webdriver
 # use as a service to save start up and close down effort for many instances
 import selenium.webdriver.chrome.service as service
+import selenium.webdriver.chrome.options as options
 
 
 class Service(object):
@@ -13,10 +14,10 @@ class Service(object):
         self._driver = chromedriver
         self.service = service.Service(chromedriver)
         self.service.start()
+        self.options = options.Options()
 
     def url(self):
         return self.service.service_url
-
 
 class Client(object):
     """
@@ -25,7 +26,7 @@ class Client(object):
         times are in seconds
     """
 
-    def __init__(self, service, timeout=2.0, verbose=False):
+    def __init__(self, service, timeout=2.0, verbose=False, disablejs=False, incognito=False):
         self._service = service
 
         self.client = None  # webdriver.Remote(service.url())
@@ -34,11 +35,16 @@ class Client(object):
         self.attempts = 0
         self.verbose = verbose
 
+        if disablejs:
+            self._service.options.add_experimental_option( "prefs",{'profile.managed_default_content_settings.javascript': 2})
+        if incognito:
+            self._service.options.add_argument("--incognito")
+
     def establishconnection(self, url, scalefactor=1.1,
                             mintimeout=1.0, maxiterations=1000, phrases_to_check=[]):
         self.attempts = 0
         while self.attempts < maxiterations:
-            self.client = webdriver.Remote(self._service.url())
+            self.client = webdriver.Remote(self._service.url(), options=self._service.options)
             self.client.set_page_load_timeout(self.timeout)
             try:
                 self.client.get(url)
@@ -59,7 +65,7 @@ class Client(object):
 
     def clickbutton(self, substr):
         for button in self.client.find_elements_by_tag_name('button'):
-            if substr in button.text:
+            if substr in button.text.lower():
                 button.click()
                 self.content = self.client.page_source
                 return

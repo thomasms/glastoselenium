@@ -50,11 +50,17 @@ def attemptconnection(client):
     if client.establishconnection(URL, phrases_to_check=PHRASES_TO_CHECK):
         print("success")
         print(client.attempts)
-        gl.tofile(client.content, "reg_page_2020.html")
+        try:
+            gl.tofile(client.content, "reg_page_2020.html")
+        except:
+            pass
         if client.submit_registration(REG_DETAILS):
             print("Registration details submission success!")
 
-            gl.tofile(client.pagesource, "payment_page_2020.html")
+            try:
+                gl.tofile(client.content, "payment_page_2020.html")
+            except:
+                pass
             # we cannot go beyond this automated, 
             # since entering credit cards details automatically
             # is terribly risky.
@@ -71,7 +77,7 @@ def attemptconnection(client):
 
 # main
 s = gl.Service(DRIVER_PATH)
-c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=False)
+c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=True, disablejs=True, incognito=True)
 attemptconnection(c)
 
 # backup sleep 
