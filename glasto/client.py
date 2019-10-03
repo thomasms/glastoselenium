@@ -26,7 +26,9 @@ class Client(object):
         times are in seconds
     """
 
-    def __init__(self, service, timeout=2.0, verbose=False, disablejs=False, incognito=False):
+    def __init__(self, service, timeout=2.0, verbose=False, 
+        disablejs=False, disableimages=True, disablecookies=False,
+        incognito=False, cache=None, headless=False, proxy=None):
         self._service = service
 
         self.client = None  # webdriver.Remote(service.url())
@@ -35,10 +37,31 @@ class Client(object):
         self.attempts = 0
         self.verbose = verbose
 
+        prefs = {}
+    
         if disablejs:
-            self._service.options.add_experimental_option( "prefs",{'profile.managed_default_content_settings.javascript': 2})
+            prefs['profile.managed_default_content_settings.javascript']= 2
+
+        if disableimages:
+            prefs['profile.managed_default_content_settings.images']= 2
+
+        if disablecookies:
+            prefs['profile.default_content_settings.cookies']= 2
+
+        if cache:
+            prefs['disk-cache-size'] = cache
+
+        if prefs:
+            self._service.options.add_experimental_option( "prefs", prefs)
+
+        if proxy:
+            self._service.options.add_argument("--proxy-server={}".format(proxy))
+
         if incognito:
             self._service.options.add_argument("--incognito")
+
+        if headless:
+            self._service.options.add_argument("--headless")
 
     def establishconnection(self, url, scalefactor=1.1,
                             mintimeout=1.0, maxiterations=1000, phrases_to_check=[]):

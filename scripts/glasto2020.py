@@ -10,6 +10,18 @@ incognito = True
 # disable js??
 disablejs = True
 
+# disable images for faster loading?
+disableimages=True
+
+# change cache size?
+cache=4096
+
+# try a proxy with "8.8.8.8:88"
+proxy=None
+
+# run without browser - kind of pointless but faster.
+headless=False
+
 # try one of these URLS
 # DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
 # DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/addregistrations"
@@ -93,7 +105,8 @@ def attemptconnection(client, url):
 # main
 s = gl.Service(DRIVER_PATH)
 c = gl.Twenty20(s, timeout=4, refreshrate=0.01, verbose=False, 
-    disablejs=disablejs, incognito=incognito)
+    disablejs=disablejs, incognito=incognito, disableimages=disableimages, 
+    cache=cache, headless=headless, proxy=proxy)
 attemptconnection(c, DEPOSIT_20_URL)
 
 # backup sleep 

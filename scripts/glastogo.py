@@ -77,7 +77,9 @@ def attemptconnection(client):
 
 # main
 s = gl.Service(DRIVER_PATH)
-c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=True, disablejs=True, incognito=True)
+c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=True, 
+    disablejs=True, incognito=True, disableimages=True, cache=4096, headless=False,
+    proxy=None)
 attemptconnection(c)
 
 # backup sleep 
