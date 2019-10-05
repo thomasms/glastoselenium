@@ -10,16 +10,7 @@ PHRASES_TO_CHECK = ["maximum possible number of transactions per second",
                     "This page will automatically check for a space every",
                     "anticipated demand for tickets"]
 
-try:
-    from glasto._custom.driver import DRIVER_PATH
-except:
-    import os
-    DRIVER_PATH = os.getenv("CHROMEDRIVER", '')
-    if not DRIVER_PATH:
-        raise RuntimeError(
-            "Requires chromedriver - set the path via env variable CHROMEDRIVER")
-
-s = gl.Service(DRIVER_PATH)
+s = gl.Service(gl.DRIVER_PATH)
 print("Service URL: ", s.url())
 # c = gl.Twenty19(s, timeout=2, refreshrate=0.01)
 c = gl.Twenty19WithKillSwitch(s, killfile="killfile.txt", timeout=2, refreshrate=0.7)

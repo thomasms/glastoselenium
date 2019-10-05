@@ -37,15 +37,6 @@ if len(REG_DETAILS) > 6:
     raise RuntimeError(
         "Cannot accept more than 1 + 5 registration details!")
 
-try:
-    from glasto._custom.driver import DRIVER_PATH
-except:
-    import os
-    DRIVER_PATH = os.getenv("CHROMEDRIVER", '')
-    if not DRIVER_PATH:
-        raise RuntimeError(
-            "Requires chromedriver - set the path via env variable CHROMEDRIVER")
-
 def attemptconnection(client):
     if client.establishconnection(URL, phrases_to_check=PHRASES_TO_CHECK):
         print("success")
@@ -76,7 +67,7 @@ def attemptconnection(client):
     # attemptconnection(client)
 
 # main
-s = gl.Service(DRIVER_PATH)
+s = gl.Service(gl.DRIVER_PATH)
 c = gl.Twenty20(s, timeout=4, refreshrate=0.000001, verbose=True, 
     disablejs=True, incognito=True, disableimages=True, cache=4096, headless=False,
     proxy=None)

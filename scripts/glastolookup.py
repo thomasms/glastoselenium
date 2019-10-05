@@ -6,16 +6,7 @@ import glasto as gl
 URL = "https://glastonbury.seetickets.com/registration/lookup"
 PHRASES_TO_CHECK = []
 
-try:
-    from glasto._custom.driver import DRIVER_PATH
-except:
-    import os
-    DRIVER_PATH = os.getenv("CHROMEDRIVER", '')
-    if not DRIVER_PATH:
-        raise RuntimeError(
-            "Requires chromedriver - set the path via env variable CHROMEDRIVER")
-
-s = gl.Service(DRIVER_PATH)
+s = gl.Service(gl.DRIVER_PATH)
 c = gl.Twenty19(s, timeout=2, refreshrate=0.01)
 
 if c.establishconnection(URL, phrases_to_check=PHRASES_TO_CHECK):

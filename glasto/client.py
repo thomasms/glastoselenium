@@ -24,6 +24,9 @@ class Client(object):
         Wraps the selenium webdriver
 
         times are in seconds
+
+        More details go here: 
+            https://seleniumhq.github.io/selenium/docs/api/py/webdriver_remote/selenium.webdriver.remote.webdriver.html
     """
 
     def __init__(self, service, timeout=2.0, verbose=False, 
@@ -100,6 +103,52 @@ class Client(object):
     def close(self):
         self.client.quit()
 
+
+class ScoutClient(Client):
+    """
+        Wraps the selenium webdriver to discover all links
+        and recursivly try each one and take a snapshot
+    """
+    def __init__(self,  *args, linkphrase="glastonbury", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.linkphrase = linkphrase
+
+    def getalllinks(self):
+        elems = self.client.find_elements_by_xpath("//a[@href]")
+        return list(set([elem.get_attribute("href") for elem in elems \
+            if elem.get_attribute("href").startswith('http') and \
+                self.linkphrase in elem.get_attribute("href")]))
+
+    def search(self, nlevels=1):
+        """
+            Recursively search through all urls down N levels
+            capture screenshots and urls
+        """
+
+        self._levelsearch(0, maxlevels=nlevels)
+
+    def _levelsearch(self, level, maxlevels=1):
+        if level == maxlevels:
+            return
+
+        def snap(name):
+            self.client.save_screenshot('level{}_link{}.png'.format(level, name))
+
+        base = self.client.current_url
+        links = self.getalllinks()
+
+        snap('base')
+        print("Base level {} url: {}, found {} links".format(level, base, len(links)))
+
+        for count, link in enumerate(links):
+            self.establishconnection(link)
+            # self.client.get(link)
+            snap(str(count))
+            print("level {} link {} url: {}".format(level, count, link))
+            self._levelsearch(level+1, maxlevels=maxlevels)
+
+        # return to base
+        self.client.get(base)
 
 class RefresherClient(Client):
     """

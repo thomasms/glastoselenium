@@ -33,10 +33,14 @@ class Twenty20(RefresherClient):
         # i.e. Please enter registration details...
         while not isregistration(self.content):
             # try again
-            if self.verbose:
-                print("Refreshing...")
+            # if self.verbose:
+            #     print("Refreshing...")
             time.sleep(self.refreshrate)
-            self.client.get(url)
+
+            # self.client.get(url)
+            # this seems quicker
+            # I think there may be a reason why I did not use this before
+            self.client.refresh()
             try:
                 self.content = self.client.find_element_by_tag_name('body')
                 # self.content = self.client \
@@ -45,6 +49,8 @@ class Twenty20(RefresherClient):
                 continue
 
         self.content = self.pagesource
+        # self.client.save_screenshot('./screenshots/registrationpage.png')
+        # print("Registration url: {}".format(self.client.current_url))
     
     def submit_registration(self, details):
         """
@@ -74,6 +80,8 @@ class Twenty20(RefresherClient):
             print("No such input.")
             # how to handle invalid or mismatch??
 
+        # self.client.save_screenshot('./screenshots/registrationpresubmitted.png')
+        # print("Pre registration url: {}".format(self.client.current_url))
         # loop again to find submit and go to submit page
         for i in inputs:
             if 'submit' in i.get_attribute('type').lower():
@@ -81,4 +89,6 @@ class Twenty20(RefresherClient):
                 i.send_keys(Keys.ENTER)
                 submitted = True
 
+        # self.client.save_screenshot('./screenshots/registrationpostsubmitted.png')
+        # print("Post registration url: {}".format(self.client.current_url))
         return submitted
