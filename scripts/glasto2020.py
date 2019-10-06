@@ -23,7 +23,7 @@ proxy=None
 headless=False
 
 # refresh rate - seconds
-refreshrate = 0.01
+refreshrate = 0.0001
 
 # try one of these URLS
 # DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1300000"
@@ -31,24 +31,20 @@ refreshrate = 0.01
 # DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020/worthy-farm/1300001"
 # DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-ticket-coach-travel-deposits/worthy-farm/1450012"
 # DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-ticket-coach-travel-deposits/worthy-farm/1450013"
-DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-ticket-deposits/worthy-farm/1450012"
+DEPOSIT_20_URL = "https://glastonbury.seetickets.com/event/glastonbury-2020-deposits/worthy-farm/1450000"
 
 PHRASES_TO_CHECK = [gl.Twenty20.REGISTRATION_PHRASE]
 
 # first is lead booker
 REG_DETAILS=[
     {
-        'number': "123", 
-        'postcode': "ABC DEF"
+        'number': "123456789", 
+        'postcode': "SW1 1SQ"
     },
     {
-        'number': "456", 
-        'postcode': "ABC5 JEF"
+        'number': "123456780", 
+        'postcode': "SW1 1SQ"
     },
-    {
-        'number': "789", 
-        'postcode': "JL14 DEF"
-    }
 ]
 
 if len(REG_DETAILS) == 0:
