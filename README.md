@@ -1,14 +1,16 @@
 # glastoselenium
 
-A script/package I used to book Glastonbury tickets in 2019 using selenium.
+A script/package I used to book Glastonbury tickets in 2019 and 2020 using selenium.
 
-It can refresh quicker than any human.
+It can refresh quicker than any human, and automatically fills in registration details to avoid any mistakes or delays.
 
-NOTE: I have attempted to adapt this for 2020. It appears as though the html and format will remain unchanged, but sadly I can 
-only test it live. I recommend starting with the script 'glasto2020.py'. Add your registration details and give it a go.
-It may automatically submit your registration details but again it may not. Also the urls are speculative, based on last year.
+The below plot shows the reason why. Demand for tickets has gone mad recently, and it is only expected to get worse for future years.
 
-It usually requires a bit of tunning, but it works every time.
+![Figure of sellout times](https://github.com/thomasms/glastoselenium/blob/master/figures/sellout_times.png?raw=true)
+
+The script usually requires a bit of tunning beforehand, but it works every time (for me anyway).
+
+The end goal is to have a completely headless bot that can do everything automatically!!! We are not there yet, but hopefully will be soon.
 
 Try:
 ```bash
