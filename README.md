@@ -7,7 +7,7 @@ Resale update coming soon!
 [![GitHub forks](https://img.shields.io/github/forks/thomasms/glastoselenium)](https://github.com/thomasms/glastoselenium/network)
 [![GitHub stars](https://img.shields.io/github/stars/thomasms/glastoselenium)](https://github.com/thomasms/glastoselenium/stargazers)
 [![GitHub license](https://img.shields.io/github/license/thomasms/glastoselenium)](https://github.com/thomasms/glastoselenium/blob/master/LICENSE)
-[![HitCount](http://hits.dwyl.io/thomasms/glastoselenium.svg)](http://hits.dwyl.io/thomasms/glastoselenium)
+[![HitCount](http://hits.dwyl.com/thomasms/glastoselenium.svg)](http://hits.dwyl.com/thomasms/glastoselenium)
 
 A script/package I used to book Glastonbury tickets in 2019 and 2020 using selenium.
 
