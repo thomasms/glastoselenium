@@ -2,7 +2,11 @@
 
 ### A python bot for booking glasto tickets
 
-Resale update coming soon!
+<b>UPDATE March, 2022: I am getting a lot of emails about this recently, hence this update.
+I no longer have time nor interest in maintaining this any longer, it is too hard to test, given that I never really know what the website will look like until the sale.
+In addition the interest in tickets is just too high, and getting through to the site, even with multiple bots and machines, is just too damn hard and not worth the hassle.
+While I still believe that Glastonbury is one of the greatest festivals on the planet, I have been enough times in my life to now let it pass.
+I will leave the code here for those interested but I am no longer confident it will get the job done. Good luck!</b>
 
 [![GitHub forks](https://img.shields.io/github/forks/thomasms/glastoselenium)](https://github.com/thomasms/glastoselenium/network)
 [![GitHub stars](https://img.shields.io/github/stars/thomasms/glastoselenium)](https://github.com/thomasms/glastoselenium/stargazers)
